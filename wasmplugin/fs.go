@@ -29,6 +29,7 @@ func init() {
 		},
 		map[string]string{
 			"@owasp_crs": "crs",
+			"@owasp_plugins": "plugins",
 		},
 	}
 }
