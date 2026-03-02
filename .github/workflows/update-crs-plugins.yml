@@ -62,3 +62,4 @@ jobs:
           branch: chore/update-crs-plugins
           delete-branch: true
           labels: dependencies
+          assignees: aaronspruit

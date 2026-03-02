@@ -62,4 +62,4 @@ jobs:
           branch: chore/update-crs-${{ steps.update.outputs.version }}
           delete-branch: true
           labels: dependencies
-          reviewers: aaronspruit
+          assignees: aaronspruit
