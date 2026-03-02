@@ -20,7 +20,7 @@ cd "${REPO_ROOT}"
 
 PLUGINS_DIR="wasmplugin/rules/plugins"
 PLUGINS_LIST=".crs-plugins.txt"
-VERSIONS_FILE=".crs-plugins-versions"
+VERSIONS_FILE=".crs-versions"
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -30,17 +30,17 @@ VERSIONS_FILE=".crs-plugins-versions"
 get_current_version() {
   local repo="$1"
   if [[ -f "${VERSIONS_FILE}" ]]; then
-    grep -F "${repo}=" "${VERSIONS_FILE}" 2>/dev/null | head -1 | cut -d= -f2- || true
+    grep -F "plugin:${repo}=" "${VERSIONS_FILE}" 2>/dev/null | head -1 | cut -d= -f2- || true
   fi
 }
 
 # Write (or update) a version entry in the versions file.
 set_version() {
   local repo="$1" version="$2"
-  if [[ -f "${VERSIONS_FILE}" ]] && grep -qF "${repo}=" "${VERSIONS_FILE}" 2>/dev/null; then
-    sed -i "s|^${repo}=.*|${repo}=${version}|" "${VERSIONS_FILE}"
+  if [[ -f "${VERSIONS_FILE}" ]] && grep -qF "plugin:${repo}=" "${VERSIONS_FILE}" 2>/dev/null; then
+    sed -i "s|^plugin:${repo}=.*|plugin:${repo}=${version}|" "${VERSIONS_FILE}"
   else
-    echo "${repo}=${version}" >> "${VERSIONS_FILE}"
+    echo "plugin:${repo}=${version}" >> "${VERSIONS_FILE}"
   fi
 }
 
@@ -169,7 +169,8 @@ done
 
 # Sort the versions file for cleanliness
 if [[ -f "${VERSIONS_FILE}" ]]; then
-  sort -o "${VERSIONS_FILE}" "${VERSIONS_FILE}"
+  # Only sort plugin lines, keep CRS_VERSION at the top
+  { grep '^CRS_VERSION=' "${VERSIONS_FILE}"; grep '^plugin:' "${VERSIONS_FILE}" | sort; } > "${VERSIONS_FILE}.tmp" && mv "${VERSIONS_FILE}.tmp" "${VERSIONS_FILE}"
 fi
 
 echo ""

@@ -14,7 +14,7 @@ set -euo pipefail
 REPO="coreruleset/coreruleset"
 RULES_DIR="wasmplugin/rules"
 CRS_DIR="${RULES_DIR}/crs"
-VERSION_FILE=".crs-version"
+VERSIONS_FILE=".crs-versions"
 
 # Resolve the repo root (script lives in .github/scripts/)
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -25,12 +25,12 @@ cd "${REPO_ROOT}"
 # 1. Determine current and latest versions
 # ---------------------------------------------------------------------------
 
-if [[ ! -f "${VERSION_FILE}" ]]; then
-  echo "::error::Version file ${VERSION_FILE} not found"
+if [[ ! -f "${VERSIONS_FILE}" ]]; then
+  echo "::error::Versions file ${VERSIONS_FILE} not found"
   exit 1
 fi
 
-CURRENT_VERSION="$(tr -d '[:space:]' < "${VERSION_FILE}")"
+CURRENT_VERSION="$(grep '^CRS_VERSION=' "${VERSIONS_FILE}" | head -1 | cut -d= -f2-)"
 echo "Current CRS version: ${CURRENT_VERSION}"
 
 # Fetch latest release tag from GitHub API
@@ -89,7 +89,7 @@ fi
 # 4. Update version file
 # ---------------------------------------------------------------------------
 
-echo "${LATEST_VERSION}" > "${VERSION_FILE}"
+sed -i "s/^CRS_VERSION=.*/CRS_VERSION=${LATEST_VERSION}/" "${VERSIONS_FILE}"
 
 # Update CRS_VERSION in ftw/Dockerfile if present
 DOCKERFILE="ftw/Dockerfile"

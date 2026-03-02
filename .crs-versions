@@ -1,0 +1,31 @@
+# CRS and plugin versions — managed by update-crs.sh and update-plugins.sh
+# Format:
+# CRS_VERSION=4.14.0
+# plugin:owner/repo=version
+CRS_VERSION=4.14.0
+plugin:coreruleset/template-plugin=
+plugin:coreruleset/auto-decoding-plugin=
+plugin:coreruleset/antivirus-plugin=
+plugin:coreruleset/body-decompress-plugin=
+plugin:coreruleset/fake-bot-plugin=
+plugin:coreruleset/google-oauth2-plugin=
+plugin:coreruleset/drupal-rule-exclusions-plugin=
+plugin:coreruleset/wordpress-rule-exclusions-plugin=
+plugin:coreruleset/nextcloud-rule-exclusions-plugin=
+plugin:coreruleset/dokuwki-rule-exclusions-plugin=
+plugin:coreruleset/cpanel-rule-exclusions-plugin=
+plugin:coreruleset/xenforo-rule-exclusions-plugin=
+plugin:coreruleset/phpbb-rule-exclusions-plugin=
+plugin:coreruleset/phpmyadmin-rule-exclusions-plugin=
+plugin:coreruleset/dos-protection-plugin-modsecurity=
+plugin:coreruleset/incubator-plugin=
+plugin:coreruleset/database-logging-plugin=
+plugin:coreruleset/referer-hardening-plugin=
+plugin:coreruleset/false-positive-report-plugin=
+plugin:coreruleset/traffic-observation-plugin=
+plugin:EsadCetiner/roundcube-rule-exclusions-plugin=
+plugin:EsadCetiner/sogo-rule-exclusions-plugin=
+plugin:EsadCetiner/iredadmin-rule-exclusions-plugin=
+plugin:eilandert/wordpress-hardening-plugin=
+plugin:netnea/netnea-crs-upgrading-plugin=
+plugin:EsadCetiner/plausible-rule-exclusions-plugin=
