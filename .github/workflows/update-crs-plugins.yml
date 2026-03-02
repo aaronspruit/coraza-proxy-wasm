@@ -42,7 +42,13 @@ jobs:
         if: steps.update.outputs.updated == 'true'
         uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # Use a repository-level Personal Access Token (PAT) to create the PR
+          # so downstream `pull_request` workflows are triggered. Create a
+          # secret named `CRS_BOT_TOKEN` in the repo settings containing a
+          # PAT with `repo` scope. If you don't set this secret, the
+          # workflow will continue to use the GITHUB_TOKEN but that may not
+          # trigger other workflows.
+          token: ${{ secrets.CRS_BOT_TOKEN }}
           commit-message: "chore: update CRS plugins"
           title: "chore: update CRS plugins"
           body: |
