@@ -112,6 +112,7 @@ download_plugin_files() {
 # Main
 # ---------------------------------------------------------------------------
 
+
 if [[ ! -f "${PLUGINS_LIST}" ]]; then
   echo "::error::Plugin list file ${PLUGINS_LIST} not found"
   exit 1
@@ -120,8 +121,8 @@ fi
 # Ensure plugins directory exists with CRS empty placeholder files
 mkdir -p "${PLUGINS_DIR}"
 
-# Read plugin repos (skip comments and blank lines)
-mapfile -t REPOS < <(grep -v '^\s*#' "${PLUGINS_LIST}" | grep -v '^\s*$' | tr -d '[:space:]' | sed '/^$/d')
+# Read plugin repos (skip comments and blank lines, trim whitespace per line)
+mapfile -t REPOS < <(grep -v '^\s*#' "${PLUGINS_LIST}" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | sed '/^$/d')
 
 if [[ ${#REPOS[@]} -eq 0 ]]; then
   echo "No plugins configured in ${PLUGINS_LIST}"
