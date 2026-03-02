@@ -3,8 +3,8 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # update-plugins.sh — Fetch the latest CRS plugins and update the local plugins directory.
-# Reads the list of plugin repos from .crs-plugins.txt.
-# Tracks per-plugin versions in .crs-plugins-versions.
+# Reads the list of plugin repos from .crs-versions.
+# Tracks per-plugin versions in .crs-versions.
 #
 # Exit codes:
 #   0 — one or more plugins updated
@@ -19,7 +19,6 @@ REPO_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 cd "${REPO_ROOT}"
 
 PLUGINS_DIR="wasmplugin/rules/plugins"
-PLUGINS_LIST=".crs-plugins.txt"
 VERSIONS_FILE=".crs-versions"
 
 # ---------------------------------------------------------------------------
@@ -112,20 +111,19 @@ download_plugin_files() {
 # Main
 # ---------------------------------------------------------------------------
 
-
-if [[ ! -f "${PLUGINS_LIST}" ]]; then
-  echo "::error::Plugin list file ${PLUGINS_LIST} not found"
+if [[ ! -f "${VERSIONS_FILE}" ]]; then
+  echo "::error::Versions file ${VERSIONS_FILE} not found"
   exit 1
 fi
 
 # Ensure plugins directory exists with CRS empty placeholder files
 mkdir -p "${PLUGINS_DIR}"
 
-# Read plugin repos (skip comments and blank lines, trim whitespace per line)
-mapfile -t REPOS < <(grep -v '^\s*#' "${PLUGINS_LIST}" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | sed '/^$/d')
+# Read plugin repos from .crs-versions (lines starting with plugin:)
+mapfile -t REPOS < <(grep '^plugin:' "${VERSIONS_FILE}" | cut -d: -f2 | cut -d= -f1)
 
 if [[ ${#REPOS[@]} -eq 0 ]]; then
-  echo "No plugins configured in ${PLUGINS_LIST}"
+  echo "No plugins configured in ${VERSIONS_FILE}"
   exit 2
 fi
 
