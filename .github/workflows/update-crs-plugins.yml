@@ -19,11 +19,14 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
 
+      - name: Make update script executable
+        run: chmod +x .github/scripts/update-plugins.sh
+
       - name: Run plugin update script
         id: update
         run: |
           set +e
-          ./.github/scripts/update-plugins.sh
+          .github/scripts/update-plugins.sh
           EXIT_CODE=$?
           set -e
 
