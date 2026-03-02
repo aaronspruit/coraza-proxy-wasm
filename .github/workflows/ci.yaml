@@ -167,7 +167,7 @@ jobs:
           tag="${GITHUB_REF#refs/tags/}"
           if ! gh release view ${tag}; then
             echo "Release ${tag} does not exist, creating..."
-            ./.github/workflows/release_notes.sh ${tag} > release-notes.txt
+            ./.github/scripts/release_notes.sh ${tag} > release-notes.txt
             gh release create ${tag} --draft --notes-file release-notes.txt --title ${GITHUB_REF#refs/tags/}
           fi
         env:
