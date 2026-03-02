@@ -23,7 +23,7 @@ jobs:
         id: update
         run: |
           set +e
-          .github/scripts/update-plugins.sh
+          ./.github/scripts/update-plugins.sh
           EXIT_CODE=$?
           set -e
 
