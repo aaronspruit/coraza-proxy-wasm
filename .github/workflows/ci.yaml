@@ -9,6 +9,7 @@ on:
       - "**/*.md"
       - "LICENSE"
   pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
   workflow_dispatch:
 
 env:
