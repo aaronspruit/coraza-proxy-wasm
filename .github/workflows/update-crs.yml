@@ -19,6 +19,9 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
 
+      - name: Make update script executable
+        run: chmod +x .github/scripts/update-crs.sh
+
       - name: Run CRS update script
         id: update
         run: |
