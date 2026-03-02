@@ -1,0 +1,55 @@
+name: Update CRS Plugins
+
+on:
+  # Run daily at 07:00 UTC (one hour after CRS ruleset check)
+  schedule:
+    - cron: "0 7 * * *"
+  # Allow manual trigger
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-plugins:
+    name: Check for CRS plugin updates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Run plugin update script
+        id: update
+        run: |
+          set +e
+          .github/scripts/update-plugins.sh
+          EXIT_CODE=$?
+          set -e
+
+          if [[ $EXIT_CODE -eq 0 ]]; then
+            echo "updated=true" >> "$GITHUB_OUTPUT"
+          elif [[ $EXIT_CODE -eq 2 ]]; then
+            echo "updated=false" >> "$GITHUB_OUTPUT"
+          else
+            exit $EXIT_CODE
+          fi
+
+      - name: Create Pull Request
+        if: steps.update.outputs.updated == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: update CRS plugins"
+          title: "chore: update CRS plugins"
+          body: |
+            Automated update of OWASP CRS plugins.
+
+            ${{ steps.update.outputs.summary }}
+
+            Plugin registry: https://github.com/coreruleset/plugin-registry
+
+            This PR was created automatically by the `update-crs-plugins` workflow.
+          branch: chore/update-crs-plugins
+          delete-branch: true
+          labels: dependencies

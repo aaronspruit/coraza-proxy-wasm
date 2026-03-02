@@ -1,0 +1,55 @@
+name: Update CRS Ruleset
+
+on:
+  # Run daily at 06:00 UTC
+  schedule:
+    - cron: "0 6 * * *"
+  # Allow manual trigger
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-crs:
+    name: Check for CRS updates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Run CRS update script
+        id: update
+        run: |
+          set +e
+          .github/scripts/update-crs.sh
+          EXIT_CODE=$?
+          set -e
+
+          if [[ $EXIT_CODE -eq 0 ]]; then
+            NEW_VERSION="$(cat .crs-version)"
+            echo "updated=true" >> "$GITHUB_OUTPUT"
+            echo "version=${NEW_VERSION}" >> "$GITHUB_OUTPUT"
+          elif [[ $EXIT_CODE -eq 2 ]]; then
+            echo "updated=false" >> "$GITHUB_OUTPUT"
+          else
+            exit $EXIT_CODE
+          fi
+
+      - name: Create Pull Request
+        if: steps.update.outputs.updated == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: update CRS ruleset to v${{ steps.update.outputs.version }}"
+          title: "chore: update CRS ruleset to v${{ steps.update.outputs.version }}"
+          body: |
+            Automated update of the OWASP Core Rule Set to **v${{ steps.update.outputs.version }}**.
+
+            Release: https://github.com/coreruleset/coreruleset/releases/tag/v${{ steps.update.outputs.version }}
+
+            This PR was created automatically by the `update-crs` workflow.
+          branch: chore/update-crs-${{ steps.update.outputs.version }}
+          delete-branch: true
+          labels: dependencies
