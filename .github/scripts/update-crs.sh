@@ -91,4 +91,10 @@ fi
 
 echo "${LATEST_VERSION}" > "${VERSION_FILE}"
 
+# Update CRS_VERSION in ftw/Dockerfile if present
+DOCKERFILE="ftw/Dockerfile"
+if [[ -f "$DOCKERFILE" ]]; then
+  sed -i "s/^ARG CRS_VERSION=.*/ARG CRS_VERSION=v${LATEST_VERSION}/" "$DOCKERFILE"
+fi
+
 echo "CRS rules updated to ${LATEST_VERSION}."
