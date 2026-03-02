@@ -31,7 +31,7 @@ jobs:
           set -e
 
           if [[ $EXIT_CODE -eq 0 ]]; then
-            NEW_VERSION="$(cat .crs-version)"
+            NEW_VERSION="$(grep '^CRS_VERSION=' .crs-versions | head -1 | cut -d= -f2)"
             echo "updated=true" >> "$GITHUB_OUTPUT"
             echo "version=${NEW_VERSION}" >> "$GITHUB_OUTPUT"
           elif [[ $EXIT_CODE -eq 2 ]]; then
