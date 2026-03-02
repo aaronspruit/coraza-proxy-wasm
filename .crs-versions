@@ -2,7 +2,7 @@
 # Format:
 # CRS_VERSION=4.14.0
 # plugin:owner/repo=version
-CRS_VERSION=4.14.0
+CRS_VERSION=4.24.0
 plugin:coreruleset/template-plugin=
 plugin:coreruleset/auto-decoding-plugin=
 plugin:coreruleset/antivirus-plugin=
