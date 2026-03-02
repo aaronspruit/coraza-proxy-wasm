@@ -1,0 +1,3 @@
+# Paths that must still run through CRS v3
+/crs3
+/another_crs3_path
