@@ -1,2 +1,27 @@
 # CRS plugin versions — managed by .github/scripts/update-plugins.sh
 # Format: owner/repo=version
+EsadCetiner/iredadmin-rule-exclusions-plugin=v1.0.1
+EsadCetiner/plausible-rule-exclusions-plugin=v1.0.0
+EsadCetiner/roundcube-rule-exclusions-plugin=v1.0.4
+EsadCetiner/sogo-rule-exclusions-plugin=v1.0.4
+coreruleset/antivirus-plugin=e6b53a7315c8c5128d6b75b8b025df7100e909be
+coreruleset/auto-decoding-plugin=5d096ad94a4f5a30803cec6d087a425b8b8930ec
+coreruleset/body-decompress-plugin=80e7d9b5d1d89fe5eaccdc5cba1fbe174efc0e44
+coreruleset/cpanel-rule-exclusions-plugin=v1.0.0
+coreruleset/database-logging-plugin=1f6ea17e92598ba0e18d3b1a49f3eb2be0c451a5
+coreruleset/dos-protection-plugin-modsecurity=98962f1f9c775f2797c0b320391f8616c7503469
+coreruleset/drupal-rule-exclusions-plugin=v1.0.0
+coreruleset/fake-bot-plugin=v1.0.0
+coreruleset/false-positive-report-plugin=b33cfa374e9563a4bc46b9747374ed79d2b0ae81
+coreruleset/google-oauth2-plugin=v1.0.0
+coreruleset/incubator-plugin=b87b1d2209b7d480afa8c1d3be20a132585c6bc3
+coreruleset/nextcloud-rule-exclusions-plugin=v1.5.0
+coreruleset/phpbb-rule-exclusions-plugin=v1.0.0
+coreruleset/phpmyadmin-rule-exclusions-plugin=v1.0.0
+coreruleset/referer-hardening-plugin=fe42d90e35996cd41ca084753992a2f909f9b2f2
+coreruleset/template-plugin=c6612d325afb22deeb44a22afaabfe822efdfcba
+coreruleset/traffic-observation-plugin=2cde93006d28e04b0a85ce94a3eae18e4020f243
+coreruleset/wordpress-rule-exclusions-plugin=v1.2.0
+coreruleset/xenforo-rule-exclusions-plugin=v1.0.0
+eilandert/wordpress-hardening-plugin=bdf8878b47fe68f19584c22e163b6075f511c1b3
+netnea/netnea-crs-upgrading-plugin=665bb12c21519d7a91610f6ccfbb0743ae4826b2
